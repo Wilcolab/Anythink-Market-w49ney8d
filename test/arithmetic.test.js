@@ -94,6 +94,35 @@ describe('Arithmetic', function () {
     });
 
 // TODO: Challenge #1
+describe('Power operation', () => {
+    it('should calculate power of two positive numbers', async () => {
+        const response = await request(app)
+            .get('/arithmetic')
+            .query({ operation: 'power', operand1: 2, operand2: 3 });
+
+        expect(response.status).toBe(200);
+        expect(response.body.result).toBe(8);
+    });
+
+    it('should return 1 when exponent is 0', async () => {
+        const response = await request(app)
+            .get('/arithmetic')
+            .query({ operation: 'power', operand1: 5, operand2: 0 });
+
+        expect(response.status).toBe(200);
+        expect(response.body.result).toBe(1);
+    });
+
+    it('should handle negative exponents', async () => {
+        const response = await request(app)
+            .get('/arithmetic')
+            .query({ operation: 'power', operand1: 2, operand2: -2 });
+
+        expect(response.status).toBe(200);
+        expect(response.body.result).toBe(0.25);
+    });
+});
+
  
 
     describe('Multiplication', function () {
